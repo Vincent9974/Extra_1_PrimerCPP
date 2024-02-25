@@ -4,12 +4,12 @@
 
 stack::stack(int n) : size(n), top(0)
 {
-    pitems = new Item[size];
+    pitems = new Item1[size];
 }
 
 stack::stack(const stack &st) : size(st.size), top(st.top)
 {
-    pitems = new Item[size];
+    pitems = new Item1[size];
     for (int i = 0; i < top; i++)
     {
         pitems[i] = st.pitems[i];
@@ -31,7 +31,7 @@ bool stack::isfull() const
     return top == size;
 }
 
-bool stack::push(const Item &item)
+bool stack::push(const Item1 &item)
 {
     if (top < size)
     {
@@ -44,7 +44,7 @@ bool stack::push(const Item &item)
     }
 }
 
-bool stack::pop(Item &item)
+bool stack::pop(Item1 &item)
 {
     if (top > 0)
     {
@@ -67,7 +67,7 @@ stack &stack::operator=(const stack &st)
     delete[] pitems;
     size = st.size;
     top = st.top;
-    pitems = new Item[size];
+    pitems = new Item1[size];
     for (int i = 0; i < top; i++)
     {
         pitems[i] = st.pitems[i];

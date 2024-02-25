@@ -1,11 +1,11 @@
 // stack.h -- class declaration for the stack ADT
-typedef unsigned long Item;
+typedef unsigned long Item1;
 
 class stack
 {
 private:
     enum { MAX = 10 }; // constant specific to class
-    Item *pitems;
+    Item1 *pitems;
     int size; // number of elements in stack
     int top;  // index for top stack item
 
@@ -15,7 +15,7 @@ public:
     ~stack();
     bool isempty() const;
     bool isfull() const;
-    bool push(const Item &item); // add item to stack
-    bool pop(Item &item);        // pop top into item
+    bool push(const Item1 &item); // add item to stack
+    bool pop(Item1 &item);        // pop top into item
     stack &operator=(const stack &st);
 };
