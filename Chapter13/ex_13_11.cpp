@@ -118,6 +118,26 @@ void _13_11_4()
     vp1.show();
 }
 
+class Base
+{
+public:
+    virtual void display() const
+    {
+        std::cout << "Base class display()\n";
+    }
+};
+
+class Derived : public Base {
+public:
+    void display() const override {
+        // 引用基类的方法
+        Base::display();
+
+        // 在后面进行修改或添加特定于派生类的行为
+        std::cout << "Derived class display()\n";
+    }
+};
+
 int main()
 {
 
@@ -127,7 +147,10 @@ int main()
 
     //_13_11_3();
 
-    _13_11_4();
+    //_13_11_4();
+
+    // Derived d;
+    // d.display();
 
     return 0;
 }
