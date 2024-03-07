@@ -304,7 +304,80 @@ void _17_8_6()
 
     // char ch;
     
+}
 
+using namespace std;
+
+void ShowStr(const string &s)
+{
+    cout << s << endl;
+}
+
+class Store {
+private:
+    ofstream &ofs; // Reference to ofstream object
+
+public:
+    // Constructor that takes ofstream object as a parameter
+    Store(ofstream &os) : ofs(os) {}
+
+    // Overloaded function call operator
+    void operator()(const string &s) const {
+        // Store length of string
+        size_t len = s.length();
+        ofs.write(reinterpret_cast<const char*>(&len), sizeof(size_t));
+
+        // Store characters
+        ofs.write(s.data(), len);
+    }
+};
+
+// Function to retrieve strings from a file
+void GetStrs(ifstream &ifs) {
+    size_t len;
+    while (ifs.read(reinterpret_cast<char*>(&len), sizeof(size_t))) {
+        // Read characters
+        string temp;
+        temp.resize(len);
+        ifs.read(&temp[0], len);
+
+        // Display the string
+        ShowStr(temp);
+    }
+}
+
+void _17_8_7()
+{
+    // acquire strings
+    vector<string> vostr;
+    string temp;
+
+    cout << "Enter strings (empty line to quit):\n";
+    while (getline(cin, temp) && temp[0] != '\0')
+        vostr.push_back(temp);
+
+    cout << "Here is your input.\n";
+    for_each(vostr.begin(), vostr.end(), ShowStr);
+
+    // store in a file
+    ofstream fout("strings.dat", ios_base::out | ios_base::binary);
+    if (!fout.is_open()) {
+        cerr << "Could not open file for output.\n";
+        exit(EXIT_FAILURE);
+    }
+
+    for_each(vostr.begin(), vostr.end(), Store(fout));
+    fout.close();
+
+    // recover file contents
+    ifstream fin("strings.dat", ios_base::in | ios_base::binary);
+    if (!fin.is_open()) {
+        cerr << "Could not open file for input.\n";
+        exit(EXIT_FAILURE);
+    }
+
+    cout << "\nHere are the strings read from the file:\n";
+    GetStrs(fin);
 }
 
 int main(int argc, char *argv[])
@@ -326,7 +399,9 @@ int main(int argc, char *argv[])
 
     //_17_8_5();
 
-    _17_8_6();
+    //_17_8_6();
+
+    _17_8_7();
 
     return 0;
 }
